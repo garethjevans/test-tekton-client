@@ -3,8 +3,9 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                echo 'hello world'
-                tektonClient.createRaw(input: ".tekton/pipeline.yaml", inputType: "FILE")
+                script {
+                    tektonClient.createRaw(input: ".tekton/pipeline.yaml", inputType: "FILE")
+                }
             }
         }
     }
