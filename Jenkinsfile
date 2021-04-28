@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                createRaw(input: ".tekton/pipeline.yaml", inputType: "FILE")
+                tektonCreateRaw(input: ".tekton/pipeline.yaml", inputType: "FILE")
             }
         }
     }
