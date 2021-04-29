@@ -3,7 +3,7 @@ apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
   creationTimestamp: null
-  name: hello-world-main-build
+  generateName: hello-world-main-build-
 spec:
   pipelineSpec:
     tasks:
@@ -20,6 +20,12 @@ spec:
             workingDir: /workspace/source
           steps:
             - image: golang:1.15
+              name: debug-environment
+              resources: {}
+              script: |
+                #!/bin/sh
+                env
+            - image: golang:1.15
               name: build-make-linux
               resources: {}
               script: |
@@ -34,7 +40,6 @@ spec:
                 cp /tekton/creds-secrets/tekton-container-registry-auth/.dockerconfigjson /kaniko/.docker/config.json
                 /kaniko/executor $KANIKO_FLAGS --context=/workspace/source --dockerfile=Dockerfile --destination=$PUSH_CONTAINER_REGISTRY/$DOCKER_REGISTRY_ORG/$APP_NAME:$VERSION
   podTemplate: {}
-    #serviceAccountName: tekton-bot
   timeout: 240h0m0s
 status: {}
 ...
