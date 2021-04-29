@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                tektonCreateRaw(input: ".tekton/hello-world.yaml", inputType: "FILE", namespace: 'tekton-pipelines')
+                tektonCreateRaw(input: ".tekton/hello-world.yaml", inputType: "FILE", namespace: 'tekton-pipelines', enableCatalog: true)
             }
         }
     }
