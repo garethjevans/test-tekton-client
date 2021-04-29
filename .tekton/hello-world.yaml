@@ -3,6 +3,7 @@ apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
   creationTimestamp: null
+  generateName: hello-world-pipeline-
 spec:
   workspaces:
     - name: shared-data
