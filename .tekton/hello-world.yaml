@@ -27,6 +27,18 @@ spec:
       value: ""
   pipelineSpec:
     tasks:
+      - name: fetch-repo
+        taskRef:
+          name: git-clone
+        workspaces:
+          - name: output
+            workspace: shared-data
+        params:
+          - name: url
+            value: $(params.REPO_URL)
+          - name: revision
+            value: $(params.PULL_BASE_REF)
+
       - name: from-build-pack
         resources: {}
         taskSpec:
