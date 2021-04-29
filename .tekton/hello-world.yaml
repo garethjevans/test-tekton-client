@@ -15,6 +15,16 @@ spec:
             requests:
               storage: 500Mi
   pipelineSpec:
+    params:
+      - description: the unique build number
+        name: BUILD_ID
+        type: string
+      - description: the git sha of the base of the pull request
+        name: PULL_BASE_SHA
+        type: string
+      - description: git url to clone
+        name: REPO_URL
+        type: string
     workspaces:
       - name: shared-data
     tasks:
