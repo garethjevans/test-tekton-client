@@ -14,13 +14,6 @@ spec:
           resources:
             requests:
               storage: 500Mi
-  params:
-    - name: BUILD_ID
-      value: ""
-    - name: PULL_BASE_SHA
-      value: ""
-    - name: REPO_URL
-      value: ""
   pipelineSpec:
     workspaces:
       - name: shared-data
