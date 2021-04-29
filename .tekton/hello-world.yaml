@@ -26,6 +26,8 @@ spec:
     - name: REPO_URL
       value: ""
   pipelineSpec:
+    workspaces:
+      - name: shared-data
     tasks:
       - name: fetch-repo
         taskRef:
