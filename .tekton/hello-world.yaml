@@ -3,7 +3,6 @@ apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
   creationTimestamp: null
-  generateName: hello-world-main-build-
 spec:
   pipelineSpec:
     tasks:
