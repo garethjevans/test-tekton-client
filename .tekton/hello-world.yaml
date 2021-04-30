@@ -41,6 +41,9 @@ spec:
             value: $(params.PULL_BASE_SHA)
 
       - name: from-build-pack
+        workspaces:
+          - name: output
+            workspace: shared-data
         resources: {}
         taskSpec:
           metadata: {}
