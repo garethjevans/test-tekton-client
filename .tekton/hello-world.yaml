@@ -64,14 +64,6 @@ spec:
               script: |
                 #!/bin/sh
                 make linux
-            - image: gcr.io/kaniko-project/executor:debug-v1.3.0
-              name: build-container-build
-              resources: {}
-              script: |
-                #!/busybox/sh
-                source .jx/variables.sh
-                cp /tekton/creds-secrets/tekton-container-registry-auth/.dockerconfigjson /kaniko/.docker/config.json
-                /kaniko/executor $KANIKO_FLAGS --context=/workspace/source --dockerfile=Dockerfile --destination=$PUSH_CONTAINER_REGISTRY/$DOCKER_REGISTRY_ORG/$APP_NAME:$VERSION
   podTemplate: {}
   timeout: 240h0m0s
 status: {}
