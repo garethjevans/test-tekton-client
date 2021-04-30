@@ -42,10 +42,12 @@ spec:
 
       - name: from-build-pack
         workspaces:
-          - name: output
+          - name: source
             workspace: shared-data
         resources: {}
         taskSpec:
+          workspaces:
+            - name: source
           metadata: {}
           stepTemplate:
             name: ""
