@@ -41,6 +41,8 @@ spec:
             value: $(params.PULL_PULL_SHA)
 
       - name: from-build-pack
+        runAfter:
+          - fetch-repo
         workspaces:
           - name: source
             workspace: shared-data
