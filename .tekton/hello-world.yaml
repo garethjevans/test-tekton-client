@@ -20,7 +20,7 @@ spec:
         name: BUILD_ID
         type: string
       - description: the git sha of the tip of the pull request
-        name: PULL_PULL_SHA
+        name: PULL_PULL_SHAH
         type: string
       - description: git url to clone
         name: REPO_URL
@@ -38,7 +38,7 @@ spec:
           - name: url
             value: $(params.REPO_URL)
           - name: revision
-            value: $(params.PULL_PULL_SHA)
+            value: $(params.PULL_PULL_SHAH)
 
       - name: from-build-pack
         runAfter:
