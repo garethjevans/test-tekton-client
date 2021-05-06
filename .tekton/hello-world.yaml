@@ -76,7 +76,7 @@ spec:
             workspace: shared-data
         resources: {}
         taskRef:
-          name: git-clone
+          name: kaniko
         params:
           - name: IMAGE
             value: garethjevans/test-tekton-client
