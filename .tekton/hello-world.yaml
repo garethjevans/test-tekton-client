@@ -77,9 +77,6 @@ spec:
         resources: {}
         taskRef:
           name: buildkit-daemonless
-        params:
-          - name: BUILDKIT_IMAGE
-            value: garethjevans/test-tekton-client:latest
 
   podTemplate: {}
   timeout: 240h0m0s
