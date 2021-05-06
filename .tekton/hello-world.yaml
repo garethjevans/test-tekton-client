@@ -80,6 +80,8 @@ spec:
         params:
           - name: IMAGE
             value: garethjevans/test-tekton-client
+          - name: EXTRA_ARGS
+            value: "--no-push"
 
   podTemplate: {}
   timeout: 240h0m0s
