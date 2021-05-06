@@ -76,7 +76,10 @@ spec:
             workspace: shared-data
         resources: {}
         taskRef:
-          name: buildkit-daemonless
+          name: kaniko
+        params:
+          - name: IMAGE
+            value: garethjevans/test-tekton-client
 
   podTemplate: {}
   timeout: 240h0m0s
