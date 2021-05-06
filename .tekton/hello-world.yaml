@@ -66,7 +66,7 @@ spec:
                 #!/bin/sh
                 pwd
                 ls -al /workspace/source
-                make fail
+                make linux
   podTemplate: {}
   timeout: 240h0m0s
 status: {}
