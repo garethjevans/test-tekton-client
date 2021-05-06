@@ -40,7 +40,7 @@ spec:
           - name: revision
             value: $(params.PULL_PULL_SHA)
 
-      - name: from-build-pack
+      - name: build-application
         runAfter:
           - fetch-repo
         workspaces:
@@ -67,6 +67,22 @@ spec:
                 pwd
                 ls -al /workspace/source
                 make linux
+
+      - name: docker-build
+        runAfter:
+          - build-application
+        workspaces:
+          - name: source
+            workspace: shared-data
+        resources: {}
+        taskRef:
+          name: kaniko
+        params:
+          - name: IMAGE
+            value: garethjevans/test-tekton-client
+          - name: EXTRA_ARGS
+            value: "--no-push"
+
   podTemplate: {}
   timeout: 240h0m0s
 status: {}
