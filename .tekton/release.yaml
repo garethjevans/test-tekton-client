@@ -1,0 +1,89 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  creationTimestamp: null
+  generateName: release-pipeline-
+spec:
+  workspaces:
+    - name: shared-data
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 500Mi
+  pipelineSpec:
+    params:
+      - description: the unique build number
+        name: BUILD_ID
+        type: string
+      - description: the git sha of the tip of the pull request
+        name: PULL_PULL_SHA
+        type: string
+      - description: git url to clone
+        name: REPO_URL
+        type: string
+    workspaces:
+      - name: shared-data
+    tasks:
+      - name: fetch-repo
+        taskRef:
+          name: git-clone
+        workspaces:
+          - name: output
+            workspace: shared-data
+        params:
+          - name: url
+            value: $(params.REPO_URL)
+          - name: revision
+            value: $(params.PULL_PULL_SHA)
+
+      - name: build-application
+        runAfter:
+          - fetch-repo
+        workspaces:
+          - name: source
+            workspace: shared-data
+        resources: {}
+        taskSpec:
+          workspaces:
+            - name: source
+          metadata: {}
+          stepTemplate:
+            name: ""
+            resources:
+              requests:
+                cpu: 400m
+                memory: 600Mi
+            workingDir: /workspace/source
+          steps:
+            - image: golang:1.15
+              name: build-make-linux
+              resources: {}
+              script: |
+                #!/bin/sh
+                pwd
+                ls -al /workspace/source
+                make linux
+
+      - name: docker-build
+        runAfter:
+          - build-application
+        workspaces:
+          - name: source
+            workspace: shared-data
+        resources: {}
+        taskRef:
+          name: kaniko
+        params:
+          - name: IMAGE
+            value: garethjevans/test-tekton-client
+          - name: EXTRA_ARGS
+            value: "--no-push"
+
+  podTemplate: {}
+  timeout: 240h0m0s
+status: {}
+...
