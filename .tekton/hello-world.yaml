@@ -50,9 +50,6 @@ spec:
         taskSpec:
           workspaces:
             - name: source
-          results:
-            - name: NEXT-VERSION
-              description: The next version for a release.
           metadata: {}
           stepTemplate:
             name: ""
@@ -68,6 +65,28 @@ spec:
               script: |
                 make linux
 
+      - name: next-version
+        runAfter:
+          - fetch-repo
+        workspaces:
+          - name: source
+            workspace: shared-data
+        resources: {}
+        taskSpec:
+          workspaces:
+            - name: source
+          results:
+            - name: NEXT-VERSION
+              description: The next version for a release.
+          metadata: {}
+          stepTemplate:
+            name: ""
+            resources:
+              requests:
+                cpu: 400m
+                memory: 600Mi
+            workingDir: /workspace/source
+          steps:
             - image: gcr.io/jenkinsxio/jx-release-version:2.4.4
               name: get-next-version
               resources: {}
