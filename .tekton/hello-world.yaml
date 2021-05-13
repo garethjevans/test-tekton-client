@@ -106,7 +106,7 @@ spec:
           name: kaniko
         params:
           - name: IMAGE
-            value: garethjevans/test-tekton-client
+            value: "garethjevans/test-tekton-client:$(tasks.next-version.results.NEXT-VERSION)"
           - name: EXTRA_ARGS
             value: "--no-push"
 
