@@ -63,10 +63,35 @@ spec:
               name: build-make-linux
               resources: {}
               script: |
-                #!/bin/sh
-                pwd
-                ls -al /workspace/source
                 make linux
+
+      - name: next-version
+        runAfter:
+          - fetch-repo
+        workspaces:
+          - name: source
+            workspace: shared-data
+        resources: {}
+        taskSpec:
+          workspaces:
+            - name: source
+          results:
+            - name: NEXT-VERSION
+              description: The next version for a release.
+          metadata: {}
+          stepTemplate:
+            name: ""
+            resources:
+              requests:
+                cpu: 400m
+                memory: 600Mi
+            workingDir: /workspace/source
+          steps:
+            - image: gcr.io/jenkinsxio/jx-release-version:2.4.4
+              name: get-next-version
+              resources: {}
+              script: |
+                jx-release-version | tee /tekton/results/NEXT-VERSION
 
       - name: docker-build
         runAfter:
@@ -79,7 +104,7 @@ spec:
           name: kaniko
         params:
           - name: IMAGE
-            value: garethjevans/test-tekton-client
+            value: "garethjevans/test-tekton-client:$(tasks.next-version.results.NEXT-VERSION)"
           - name: EXTRA_ARGS
             value: "--no-push"
 
