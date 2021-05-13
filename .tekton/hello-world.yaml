@@ -50,6 +50,9 @@ spec:
         taskSpec:
           workspaces:
             - name: source
+          results:
+            - name: NEXT-VERSION
+              description: The next version for a release.
           metadata: {}
           stepTemplate:
             name: ""
