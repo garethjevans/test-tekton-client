@@ -91,9 +91,7 @@ spec:
               name: get-next-version
               resources: {}
               script: |
-                NEXT_VERSION=$(jx-release-version)
-                echo $NEXT_VERSION
-                echo $NEXT_VERSION | tee /tekton/results/NEXT-VERSION
+                jx-release-version | tee /tekton/results/NEXT-VERSION
 
       - name: docker-build
         runAfter:
