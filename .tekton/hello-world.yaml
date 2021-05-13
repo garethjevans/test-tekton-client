@@ -66,14 +66,12 @@ spec:
               name: build-make-linux
               resources: {}
               script: |
-                #!/bin/sh
                 make linux
 
             - image: gcr.io/jenkinsxio/jx-release-version:2.4.4
               name: get-next-version
               resources: {}
               script: |
-                #!/bin/sh
                 NEXT_VERSION=$(jx-release-version)
                 echo $NEXT_VERSION
                 echo $NEXT_VERSION | tee /tekton/results/NEXT-VERSION
